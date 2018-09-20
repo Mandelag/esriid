@@ -5,6 +5,9 @@
     @author Keenan Mandela Gebze
     @ver 29 August 2018
 """
+import esriid
+
+DEFAULT_CLASSIFIER_CACHER = esriid.DatasetClassifier()
 
 def tableview_properties_mapping(tv):
     """ An example of extract table implementation """
@@ -35,7 +38,7 @@ def tableview_properties_mapping(tv):
         properties = ["Value error", ("", ""), ("", ""), ("", "") ,("" ,""), ("", ""), ("", ""), ("", ""), ("", ""), ("", ""), ("", ""), ("", "") ,("" ,""), ("", ""), ("", ""), ("", ""), ("", "")]
     return properties
 
-def layer_properties_mapping(layer):
+def layer_properties_mapping(layer, cacher=DEFAULT_CLASSIFIER_CACHER):
     """ An example of extract layer implementation """
     #if layer.isGroupLayer:
     #    return None
@@ -53,8 +56,10 @@ def layer_properties_mapping(layer):
         ("Is broken", "Broken" if layer.isBroken else ""),
         #("Workspace path", "" if layer.supports("WORKSPACEPATH") else layer.workspacePath),
         ("Dataset name", "" if not layer.supports("DATASETNAME") else layer.datasetName),
-        ("Datasource", "" if not layer.supports("DATASOURCE") else layer.dataSource)
+        ("Datasource", "" if not layer.supports("DATASOURCE") else layer.dataSource),
+        ("Datasource type", cacher.classify_dataset(layer.dataSource))
     ]
+    
     serviceProps = [("Service type", "" if not layer.supports("SERVICEPROPERTIES") else layer.serviceProperties.get("ServiceType", "")),
         ("Server", "" if not layer.supports("SERVICEPROPERTIES") else layer.serviceProperties.get("Server", "")),
         ("Service", "" if not layer.supports("SERVICEPROPERTIES") else layer.serviceProperties.get("Service", "")),
