@@ -16,7 +16,7 @@ class DatasetClassifier:
         is relatively expensive process.
     """
     def __init__(this):
-        reset_cache(this)
+        this.reset_cache()
     
     def classify_dataset(this, path_to_dataset):
         """
