@@ -7,8 +7,6 @@
 """
 import esriid
 
-DEFAULT_CLASSIFIER_CACHER = esriid.DatasetClassifier()
-
 def tableview_properties_mapping(tv):
     """ An example of extract table implementation """
     properties = []
@@ -38,7 +36,7 @@ def tableview_properties_mapping(tv):
         properties = ["Value error", ("", ""), ("", ""), ("", "") ,("" ,""), ("", ""), ("", ""), ("", ""), ("", ""), ("", ""), ("", ""), ("", "") ,("" ,""), ("", ""), ("", ""), ("", ""), ("", "")]
     return properties
 
-def layer_properties_mapping(layer, cacher=DEFAULT_CLASSIFIER_CACHER):
+def layer_properties_mapping(layer, cacher=esriid.DatasetClassifier()):
     """ An example of extract layer implementation """
     #if layer.isGroupLayer:
     #    return None
